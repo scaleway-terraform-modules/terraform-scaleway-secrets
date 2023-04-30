@@ -9,5 +9,6 @@ resource "scaleway_secret" "this" {
 resource "scaleway_secret_version" "this" {
   data        = var.data
   description = var.description
+  region      = var.region
   secret_id   = scaleway_secret.this.id
 }
