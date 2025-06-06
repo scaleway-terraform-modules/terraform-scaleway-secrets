@@ -4,6 +4,7 @@ resource "scaleway_secret" "this" {
   region      = var.region
   project_id  = var.project_id
   tags        = var.tags
+  path        = var.path
 }
 
 resource "scaleway_secret_version" "this" {

@@ -29,3 +29,14 @@ module "secret" {
   project_id  = data.scaleway_account_project.default.id
   region      = local.region
 }
+
+module "secret_with_path" {
+  source = "../.."
+
+  name        = local.secret_name
+  data        = random_password.password.result
+  description = local.secret_description
+  project_id  = data.scaleway_account_project.default.id
+  region      = local.region
+  path        = "/example/path/to/secret"
+}
