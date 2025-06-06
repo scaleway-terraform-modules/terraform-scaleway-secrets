@@ -41,10 +41,10 @@ module "my_service" {
 | <a name="input_data"></a> [data](#input_data) | Data payload of the secret version. Must be no larger than 64KiB. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input_name) | (Required) Name of the secret. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input_description) | Description of the secret. | `string` | `null` | no |
+| <a name="input_path"></a> [path](#input_path) | Path of the secret. | `string` | `null` | no |
 | <a name="input_project_id"></a> [project_id](#input_project_id) | ID of the project containing the secret. Ressource will be created in the project set at the provider level if null. | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input_region) | Region in which the resource exists. Ressource will be created in the region set at the provider level if null. | `any` | `null` | no |
 | <a name="input_tags"></a> [tags](#input_tags) | Tags associated with the secret. | `list(string)` | `[]` | no |
-| <a name="input_path"></a> [path](#input_path) | Path of the secret. | `string` | n/a | yes |
 
 ## Outputs
 
