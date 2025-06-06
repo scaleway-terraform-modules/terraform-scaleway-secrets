@@ -37,3 +37,9 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
+
+variable "path" {
+  description = "Path of the secret."
+  type        = string
+  default     = null
+}
