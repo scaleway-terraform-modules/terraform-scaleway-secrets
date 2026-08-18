@@ -13,6 +13,21 @@ output "secret_version" {
   description = "Number of versions for this Secret."
 }
 
+output "secret_srn" {
+  value       = scaleway_secret.this.srn
+  description = "Scaleway Resource Name (SRN) of the Secret."
+}
+
+output "secret_creation_date" {
+  value       = scaleway_secret.this.created_at
+  description = "Date and time of the Secret's creation (RFC 3339 format)."
+}
+
+output "secret_update_date" {
+  value       = scaleway_secret.this.updated_at
+  description = "Date and time of the Secret's last update (RFC 3339 format)."
+}
+
 output "version_data" {
   value       = scaleway_secret_version.this.data
   description = "Data payload (base64 encoded) of the Secret version."
@@ -27,6 +42,11 @@ output "version_id" {
 output "version_revision" {
   value       = scaleway_secret_version.this.revision
   description = "Revision for this Secret Version."
+}
+
+output "version_srn" {
+  value       = scaleway_secret_version.this.srn
+  description = "Scaleway Resource Name (SRN) of the Secret version."
 }
 
 output "version_status" {
