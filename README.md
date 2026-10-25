@@ -13,7 +13,7 @@ This repository is used to manage secrets on scaleway using terraform.
 ```hcl
 module "my_service" {
   source  = "scaleway-terraform-modules/secrets/scaleway"
-  version = "0.0.1"
+  version = "~> 1.0"
 
   # insert required variables here
 }
@@ -23,7 +23,8 @@ module "my_service" {
 
 ```hcl
 module "db_secret" {
-  source = "scaleway-terraform-modules/secrets/scaleway"
+  source  = "scaleway-terraform-modules/secrets/scaleway"
+  version = "~> 1.0"
 
   name      = "db-credentials"
   type      = "database_credentials"
@@ -52,7 +53,8 @@ Use `data_wo` instead of `data` to avoid persisting the secret value in the Terr
 
 ```hcl
 module "api_key" {
-  source = "scaleway-terraform-modules/secrets/scaleway"
+  source  = "scaleway-terraform-modules/secrets/scaleway"
+  version = "~> 1.0"
 
   name            = "api-key"
   data_wo         = var.api_key
