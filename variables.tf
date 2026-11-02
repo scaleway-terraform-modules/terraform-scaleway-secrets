@@ -44,6 +44,11 @@ variable "data_wo_version" {
   description = "Version marker for `data_wo`. Must be incremented whenever `data_wo` changes to trigger the creation of a new secret version."
   type        = number
   default     = null
+
+  validation {
+    condition     = var.data_wo == null || var.data_wo_version != null
+    error_message = "`data_wo_version` must be set (and incremented on every change to `data_wo`) when `data_wo` is used."
+  }
 }
 
 variable "name" {

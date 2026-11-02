@@ -25,11 +25,4 @@ resource "scaleway_secret_version" "this" {
   data_wo_version = var.data_wo_version
   description     = try(coalesce(var.version_description, var.description), null)
   region          = var.region
-
-  lifecycle {
-    precondition {
-      condition     = var.data_wo == null || var.data_wo_version != null
-      error_message = "`data_wo_version` must be set (and incremented on every change to `data_wo`) when `data_wo` is used."
-    }
-  }
 }
