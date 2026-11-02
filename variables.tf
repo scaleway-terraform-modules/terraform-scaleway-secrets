@@ -5,8 +5,14 @@ variable "data" {
   default     = null
 
   validation {
-    condition     = var.data == null || try(length(var.data) > 0 && length(var.data) < 65537, false)
-    error_message = "The secret value must be less than 64kb."
+    condition     = var.data == null || try(length(var.data) > 0, false)
+    error_message = "`data` must not be empty."
+  }
+
+  # length() counts characters: the size in bytes is computed from the base64 encoding, minus its padding.
+  validation {
+    condition     = var.data == null || try(length(base64encode(var.data)) / 4 * 3 - length(regex("=*$", base64encode(var.data))) <= 65536, false)
+    error_message = "`data` must be no larger than 64KiB (65536 bytes)."
   }
 }
 
@@ -18,8 +24,14 @@ variable "data_wo" {
   default     = null
 
   validation {
-    condition     = var.data_wo == null || try(length(var.data_wo) > 0 && length(var.data_wo) < 65537, false)
-    error_message = "The secret value must be less than 64kb."
+    condition     = var.data_wo == null || try(length(var.data_wo) > 0, false)
+    error_message = "`data_wo` must not be empty."
+  }
+
+  # length() counts characters: the size in bytes is computed from the base64 encoding, minus its padding.
+  validation {
+    condition     = var.data_wo == null || try(length(base64encode(var.data_wo)) / 4 * 3 - length(regex("=*$", base64encode(var.data_wo))) <= 65536, false)
+    error_message = "`data_wo` must be no larger than 64KiB (65536 bytes)."
   }
 }
 
