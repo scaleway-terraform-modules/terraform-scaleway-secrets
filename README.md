@@ -101,10 +101,15 @@ module "api_key" {
 |------|-------------|
 | <a name="output_secret_creation_date"></a> [secret_creation_date](#output_secret_creation_date) | Date and time of the Secret's creation (RFC 3339 format). |
 | <a name="output_secret_id"></a> [secret_id](#output_secret_id) | ID of the Secret |
+| <a name="output_secret_name"></a> [secret_name](#output_secret_name) | Name of the Secret. |
+| <a name="output_secret_path"></a> [secret_path](#output_secret_path) | Path of the Secret. |
+| <a name="output_secret_project_id"></a> [secret_project_id](#output_secret_project_id) | ID of the project containing the Secret. |
+| <a name="output_secret_region"></a> [secret_region](#output_secret_region) | Region of the Secret. |
 | <a name="output_secret_srn"></a> [secret_srn](#output_secret_srn) | Scaleway Resource Name (SRN) of the Secret. |
 | <a name="output_secret_status"></a> [secret_status](#output_secret_status) | Status of the Secret. |
+| <a name="output_secret_type"></a> [secret_type](#output_secret_type) | Type of the Secret. |
 | <a name="output_secret_update_date"></a> [secret_update_date](#output_secret_update_date) | Date and time of the Secret's last update (RFC 3339 format). |
-| <a name="output_secret_version"></a> [secret_version](#output_secret_version) | Number of versions for this Secret. |
+| <a name="output_secret_version_count"></a> [secret_version_count](#output_secret_version_count) | Number of versions for this Secret. |
 | <a name="output_version_creation_date"></a> [version_creation_date](#output_version_creation_date) | Date and time of Secret version's creation (RFC 3339 format). |
 | <a name="output_version_data"></a> [version_data](#output_version_data) | Data payload of the Secret version, as set in `data`. Null when the version is set with `data_wo`, as write-only values are never stored in the state. |
 | <a name="output_version_id"></a> [version_id](#output_version_id) | ID of the Secret version. |

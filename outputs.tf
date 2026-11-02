@@ -3,12 +3,37 @@ output "secret_id" {
   description = "ID of the Secret"
 }
 
+output "secret_name" {
+  value       = scaleway_secret.this.name
+  description = "Name of the Secret."
+}
+
+output "secret_path" {
+  value       = scaleway_secret.this.path
+  description = "Path of the Secret."
+}
+
+output "secret_project_id" {
+  value       = scaleway_secret.this.project_id
+  description = "ID of the project containing the Secret."
+}
+
+output "secret_region" {
+  value       = scaleway_secret.this.region
+  description = "Region of the Secret."
+}
+
+output "secret_type" {
+  value       = scaleway_secret.this.type
+  description = "Type of the Secret."
+}
+
 output "secret_status" {
   value       = scaleway_secret.this.status
   description = "Status of the Secret."
 }
 
-output "secret_version" {
+output "secret_version_count" {
   value       = scaleway_secret.this.version_count
   description = "Number of versions for this Secret."
 }
