@@ -22,7 +22,7 @@ module "my_secret" {
 }
 ```
 
-See the [examples](examples) folder for runnable configurations.
+See the [examples](examples) folder for runnable configurations covering the most common use-cases (random password, write-only data, typed database credentials with an ephemeral policy).
 
 ### Upgrading from v1
 
