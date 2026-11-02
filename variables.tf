@@ -49,6 +49,11 @@ variable "data_wo_version" {
     condition     = var.data_wo == null || var.data_wo_version != null
     error_message = "`data_wo_version` must be set (and incremented on every change to `data_wo`) when `data_wo` is used."
   }
+
+  validation {
+    condition     = var.data_wo_version == null || try(var.data_wo_version >= 1 && floor(var.data_wo_version) == var.data_wo_version, false)
+    error_message = "`data_wo_version` must be an integer greater than or equal to 1."
+  }
 }
 
 variable "name" {
