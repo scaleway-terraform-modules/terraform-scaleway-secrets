@@ -2,8 +2,10 @@
 
 ## Purpose
 
-This repository is used to manage secrets on scaleway using terraform. 
-~> **Important:** Beware that secret's values won't be displayed on plan/apply, netherless it will be stored in the state file. For more information, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
+This repository is used to manage secrets on scaleway using terraform.
+
+> [!IMPORTANT]
+> Secret values set with `data` are not displayed on plan/apply, but they are nevertheless stored in the state file. Use `data_wo` with an ephemeral value to keep them out of the state (see [Write-only data](#write-only-data)). For more information, see [Sensitive Data in State](https://developer.hashicorp.com/terraform/language/state/sensitive-data).
 
 ## Usage
 
@@ -11,20 +13,31 @@ This repository is used to manage secrets on scaleway using terraform.
 - Include this module in your tf file. Refer to [documentation](https://www.terraform.io/docs/modules/sources.html#generic-git-repository).
 
 ```hcl
-module "my_service" {
+module "my_secret" {
   source  = "scaleway-terraform-modules/secrets/scaleway"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
-  # insert required variables here
+  name = "my-secret"
+  data = "my-secret-value"
 }
 ```
+
+See the [examples](examples) folder for runnable configurations.
+
+### Upgrading from v1
+
+v2.0.0 contains breaking changes:
+
+- Terraform >= 1.11 and Scaleway provider >= 2.79.0 are required.
+- The `secret_version` output is renamed to `secret_version_count`.
+- Some inputs that were accepted before now fail at plan time: `data_wo_version` must be an integer greater than or equal to 1, `path` must start with `/`, and `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`.
 
 ### Secret types, protection & ephemeral policy
 
 ```hcl
 module "db_secret" {
   source  = "scaleway-terraform-modules/secrets/scaleway"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   name      = "db-credentials"
   type      = "database_credentials"
@@ -47,14 +60,22 @@ module "db_secret" {
 }
 ```
 
+An ephemeral policy must set `ttl` (between 1 second and 1 year), `expires_once_accessed = true`, or both. A protected secret cannot be deleted: `terraform destroy` fails until `protected` is set back to `false`.
+
 ### Write-only data
 
-Use `data_wo` instead of `data` to avoid persisting the secret value in the Terraform state. Requires Terraform >= 1.11. Bump `data_wo_version` every time `data_wo` changes to trigger a new secret version.
+Use `data_wo` instead of `data` to avoid persisting the secret value in the Terraform state. Requires Terraform >= 1.11. The value must itself stay out of the state, e.g. an ephemeral variable or an ephemeral resource. Set `data_wo_version` to an integer greater than or equal to 1, and increment it every time `data_wo` changes to trigger a new secret version.
 
 ```hcl
+variable "api_key" {
+  type      = string
+  ephemeral = true
+  sensitive = true
+}
+
 module "api_key" {
   source  = "scaleway-terraform-modules/secrets/scaleway"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   name            = "api-key"
   data_wo         = var.api_key
@@ -125,4 +146,4 @@ Module is maintained with help from [the community](https://github.com/scaleway-
 
 ## License
 
-Mozilla Public License 2.0 Licensed. See [LICENSE](https://github.com/scaleway-terraform-modules/terraform-scaleway-secrets/tree/master/LICENSE) for full details.
+Mozilla Public License 2.0 Licensed. See [LICENSE](https://github.com/scaleway-terraform-modules/terraform-scaleway-secrets/tree/main/LICENSE) for full details.
