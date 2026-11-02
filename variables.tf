@@ -5,6 +5,11 @@ variable "data" {
   default     = null
 
   validation {
+    condition     = (var.data != null) != (var.data_wo != null)
+    error_message = "Exactly one of `data` or `data_wo` must be set."
+  }
+
+  validation {
     condition     = var.data == null || try(length(var.data) > 0, false)
     error_message = "`data` must not be empty."
   }

@@ -28,10 +28,6 @@ resource "scaleway_secret_version" "this" {
 
   lifecycle {
     precondition {
-      condition     = (var.data != null) != (var.data_wo != null)
-      error_message = "Exactly one of `data` or `data_wo` must be set."
-    }
-    precondition {
       condition     = var.data_wo == null || var.data_wo_version != null
       error_message = "`data_wo_version` must be set (and incremented on every change to `data_wo`) when `data_wo` is used."
     }
