@@ -89,6 +89,7 @@ variable "tags" {
   description = "Tags associated with the secret."
   type        = list(string)
   default     = []
+  nullable    = false
 }
 
 variable "path" {
@@ -117,6 +118,7 @@ variable "protected" {
   description = "True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false."
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "ephemeral_policy" {
