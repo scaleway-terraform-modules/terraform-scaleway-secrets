@@ -30,7 +30,7 @@ output "secret_update_date" {
 
 output "version_data" {
   value       = scaleway_secret_version.this.data
-  description = "Data payload (base64 encoded) of the Secret version."
+  description = "Data payload of the Secret version, as set in `data`. Null when the version is set with `data_wo`, as write-only values are never stored in the state."
   sensitive   = true
 }
 

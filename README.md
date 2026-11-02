@@ -106,7 +106,7 @@ module "api_key" {
 | <a name="output_secret_update_date"></a> [secret_update_date](#output_secret_update_date) | Date and time of the Secret's last update (RFC 3339 format). |
 | <a name="output_secret_version"></a> [secret_version](#output_secret_version) | Number of versions for this Secret. |
 | <a name="output_version_creation_date"></a> [version_creation_date](#output_version_creation_date) | Date and time of Secret version's creation (RFC 3339 format). |
-| <a name="output_version_data"></a> [version_data](#output_version_data) | Data payload (base64 encoded) of the Secret version. |
+| <a name="output_version_data"></a> [version_data](#output_version_data) | Data payload of the Secret version, as set in `data`. Null when the version is set with `data_wo`, as write-only values are never stored in the state. |
 | <a name="output_version_id"></a> [version_id](#output_version_id) | ID of the Secret version. |
 | <a name="output_version_revision"></a> [version_revision](#output_version_revision) | Revision for this Secret Version. |
 | <a name="output_version_srn"></a> [version_srn](#output_version_srn) | Scaleway Resource Name (SRN) of the Secret version. |
