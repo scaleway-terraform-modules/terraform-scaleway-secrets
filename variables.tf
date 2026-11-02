@@ -11,8 +11,9 @@ variable "data" {
 }
 
 variable "data_wo" {
-  description = "Write-only data payload of the secret version (never stored in Terraform state). Must be no larger than 64KiB. Mutually exclusive with `data`; exactly one of the two must be set. Requires Terraform >= 1.11. To rotate the value, increment `data_wo_version`."
+  description = "Write-only data payload of the secret version (never stored in Terraform state). Must be no larger than 64KiB. Mutually exclusive with `data`; exactly one of the two must be set. Requires Terraform >= 1.11. Accepts ephemeral values, e.g. from an ephemeral resource. To rotate the value, increment `data_wo_version`."
   type        = string
+  ephemeral   = true
   sensitive   = true
   default     = null
 
