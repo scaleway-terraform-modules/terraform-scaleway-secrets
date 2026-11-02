@@ -92,9 +92,14 @@ variable "tags" {
 }
 
 variable "path" {
-  description = "Path of the secret."
+  description = "Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null."
   type        = string
   default     = null
+
+  validation {
+    condition     = var.path == null || try(startswith(var.path, "/"), false)
+    error_message = "`path` must start with `/`, e.g. `/app/production`."
+  }
 }
 
 variable "type" {

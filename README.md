@@ -87,7 +87,7 @@ module "api_key" {
 | <a name="input_data_wo_version"></a> [data_wo_version](#input_data_wo_version) | Version marker for `data_wo`. Must be incremented whenever `data_wo` changes to trigger the creation of a new secret version. | `number` | `null` | no |
 | <a name="input_description"></a> [description](#input_description) | Description of the secret. | `string` | `null` | no |
 | <a name="input_ephemeral_policy"></a> [ephemeral_policy](#input_ephemeral_policy) | Ephemeral policy of the secret, defining whether/when its versions expire. Set to null (default) to disable. | ```object({ ttl = optional(string) expires_once_accessed = optional(bool) action = string })``` | `null` | no |
-| <a name="input_path"></a> [path](#input_path) | Path of the secret. | `string` | `null` | no |
+| <a name="input_path"></a> [path](#input_path) | Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null. | `string` | `null` | no |
 | <a name="input_project_id"></a> [project_id](#input_project_id) | ID of the project containing the secret. Resource will be created in the project set at the provider level if null. | `string` | `null` | no |
 | <a name="input_protected"></a> [protected](#input_protected) | True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false. | `bool` | `false` | no |
 | <a name="input_region"></a> [region](#input_region) | Region in which the resource exists. Resource will be created in the region set at the provider level if null. | `string` | `null` | no |
