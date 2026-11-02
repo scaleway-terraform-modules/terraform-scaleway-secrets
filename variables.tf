@@ -134,4 +134,9 @@ variable "ephemeral_policy" {
     condition     = var.ephemeral_policy == null || try(contains(["disable", "delete"], var.ephemeral_policy.action), false)
     error_message = "The `ephemeral_policy.action` must be one of: disable, delete."
   }
+
+  validation {
+    condition     = var.ephemeral_policy == null || try(var.ephemeral_policy.ttl != null || var.ephemeral_policy.expires_once_accessed == true, false)
+    error_message = "The `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`."
+  }
 }
