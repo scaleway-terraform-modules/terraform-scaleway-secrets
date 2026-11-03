@@ -1,8 +1,8 @@
 variable "data" {
-  description = "Data payload of the secret version. Must be no larger than 64KiB. Mutually exclusive with `data_wo`; exactly one of the two must be set."
   type        = string
-  sensitive   = true
+  description = "Data payload of the secret version. Must be no larger than 64KiB. Mutually exclusive with `data_wo`; exactly one of the two must be set."
   default     = null
+  sensitive   = true
 
   validation {
     condition     = (var.data != null) != (var.data_wo != null)
@@ -22,11 +22,11 @@ variable "data" {
 }
 
 variable "data_wo" {
-  description = "Write-only data payload of the secret version (never stored in Terraform state). Must be no larger than 64KiB. Mutually exclusive with `data`; exactly one of the two must be set. Requires Terraform >= 1.11. Accepts ephemeral values, e.g. from an ephemeral resource. To rotate the value, increment `data_wo_version`."
   type        = string
-  ephemeral   = true
-  sensitive   = true
+  description = "Write-only data payload of the secret version (never stored in Terraform state). Must be no larger than 64KiB. Mutually exclusive with `data`; exactly one of the two must be set. Requires Terraform >= 1.11. Accepts ephemeral values, e.g. from an ephemeral resource. To rotate the value, increment `data_wo_version`."
   default     = null
+  sensitive   = true
+  ephemeral   = true
 
   validation {
     condition     = var.data_wo == null || try(length(var.data_wo) > 0, false)
@@ -41,8 +41,8 @@ variable "data_wo" {
 }
 
 variable "data_wo_version" {
-  description = "Version marker for `data_wo`. Must be incremented whenever `data_wo` changes to trigger the creation of a new secret version."
   type        = number
+  description = "Version marker for `data_wo`. Must be incremented whenever `data_wo` changes to trigger the creation of a new secret version."
   default     = null
 
   validation {
@@ -57,44 +57,44 @@ variable "data_wo_version" {
 }
 
 variable "name" {
-  description = "(Required) Name of the secret."
   type        = string
+  description = "(Required) Name of the secret."
 }
 
 variable "description" {
-  description = "Description of the secret."
   type        = string
+  description = "Description of the secret."
   default     = null
 }
 
 variable "version_description" {
-  description = "Description of the secret version. Defaults to `description` when not set."
   type        = string
+  description = "Description of the secret version. Defaults to `description` when not set."
   default     = null
 }
 
 variable "region" {
-  description = "Region in which the resource exists. Resource will be created in the region set at the provider level if null."
   type        = string
+  description = "Region in which the resource exists. Resource will be created in the region set at the provider level if null."
   default     = null
 }
 
 variable "project_id" {
-  description = "ID of the project containing the secret. Resource will be created in the project set at the provider level if null."
   type        = string
+  description = "ID of the project containing the secret. Resource will be created in the project set at the provider level if null."
   default     = null
 }
 
 variable "tags" {
-  description = "Tags associated with the secret."
   type        = list(string)
+  description = "Tags associated with the secret."
   default     = []
   nullable    = false
 }
 
 variable "path" {
-  description = "Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null."
   type        = string
+  description = "Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null."
   default     = null
 
   validation {
@@ -104,8 +104,8 @@ variable "path" {
 }
 
 variable "type" {
-  description = "Type of the secret. One of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key. Defaults to the provider's default (opaque) when null."
   type        = string
+  description = "Type of the secret. One of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key. Defaults to the provider's default (opaque) when null."
   default     = null
 
   validation {
@@ -115,20 +115,20 @@ variable "type" {
 }
 
 variable "protected" {
-  description = "True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false."
   type        = bool
+  description = "True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false."
   default     = false
   nullable    = false
 }
 
 variable "ephemeral_policy" {
-  description = "Ephemeral policy of the secret, defining whether/when its versions expire. Set to null (default) to disable."
   type = object({
     ttl                   = optional(string)
     expires_once_accessed = optional(bool)
     action                = string
   })
-  default = null
+  description = "Ephemeral policy of the secret, defining whether/when its versions expire. Set to null (default) to disable."
+  default     = null
 
   validation {
     condition     = var.ephemeral_policy == null || try(contains(["disable", "delete"], var.ephemeral_policy.action), false)
