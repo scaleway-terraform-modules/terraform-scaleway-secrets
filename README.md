@@ -102,7 +102,7 @@ module "api_key" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input_name) | (Required) Name of the secret. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input_name) | Name of the secret. | `string` | n/a | yes |
 | <a name="input_data"></a> [data](#input_data) | Data payload of the secret version. Must be no larger than 64KiB. Mutually exclusive with `data_wo`; exactly one of the two must be set. | `string` | `null` | no |
 | <a name="input_data_wo"></a> [data_wo](#input_data_wo) | Write-only data payload of the secret version (never stored in Terraform state). Must be no larger than 64KiB. Mutually exclusive with `data`; exactly one of the two must be set. Requires Terraform >= 1.11. Accepts ephemeral values, e.g. from an ephemeral resource. To rotate the value, increment `data_wo_version`. | `string` | `null` | no |
 | <a name="input_data_wo_version"></a> [data_wo_version](#input_data_wo_version) | Version marker for `data_wo`. Must be incremented whenever `data_wo` changes to trigger the creation of a new secret version. | `number` | `null` | no |
