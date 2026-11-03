@@ -28,9 +28,10 @@ See the [examples](examples) folder for runnable configurations covering the mos
 
 v2.0.0 contains breaking changes:
 
-- Terraform >= 1.11 and Scaleway provider >= 2.79.0 are required.
 - The `secret_version` output is renamed to `secret_version_count`.
-- Some inputs that were accepted before now fail at plan time: `data_wo_version` must be an integer greater than or equal to 1, `path` must start with `/`, and `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`.
+- Some inputs that were accepted before now fail at plan time: `data` and `data_wo` must be no larger than 64KiB in bytes (not characters), `data_wo_version` must be an integer greater than or equal to 1, `path` must start with `/`, and `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`.
+
+Read the [v2.0.0 release notes](https://github.com/scaleway-terraform-modules/terraform-scaleway-secrets/releases/tag/v2.0.0) for the upgrade guide.
 
 ### Secret types, protection & ephemeral policy
 
