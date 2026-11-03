@@ -56,69 +56,10 @@ variable "data_wo_version" {
   }
 }
 
-variable "name" {
-  type        = string
-  description = "(Required) Name of the secret."
-}
-
 variable "description" {
   type        = string
   description = "Description of the secret."
   default     = null
-}
-
-variable "version_description" {
-  type        = string
-  description = "Description of the secret version. Defaults to `description` when not set."
-  default     = null
-}
-
-variable "region" {
-  type        = string
-  description = "Region in which the resource exists. Resource will be created in the region set at the provider level if null."
-  default     = null
-}
-
-variable "project_id" {
-  type        = string
-  description = "ID of the project containing the secret. Resource will be created in the project set at the provider level if null."
-  default     = null
-}
-
-variable "tags" {
-  type        = list(string)
-  description = "Tags associated with the secret."
-  default     = []
-  nullable    = false
-}
-
-variable "path" {
-  type        = string
-  description = "Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null."
-  default     = null
-
-  validation {
-    condition     = var.path == null || try(startswith(var.path, "/"), false)
-    error_message = "`path` must start with `/`, e.g. `/app/production`."
-  }
-}
-
-variable "type" {
-  type        = string
-  description = "Type of the secret. One of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key. Defaults to the provider's default (opaque) when null."
-  default     = null
-
-  validation {
-    condition     = var.type == null || try(contains(["opaque", "key_value", "database_credentials", "certificate", "basic_credentials", "ssh_key"], var.type), false)
-    error_message = "The type must be one of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key."
-  }
-}
-
-variable "protected" {
-  type        = bool
-  description = "True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false."
-  default     = false
-  nullable    = false
 }
 
 variable "ephemeral_policy" {
@@ -139,4 +80,63 @@ variable "ephemeral_policy" {
     condition     = var.ephemeral_policy == null || try(var.ephemeral_policy.ttl != null || var.ephemeral_policy.expires_once_accessed == true, false)
     error_message = "The `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`."
   }
+}
+
+variable "name" {
+  type        = string
+  description = "(Required) Name of the secret."
+}
+
+variable "path" {
+  type        = string
+  description = "Path of the secret. Must start with `/`. Defaults to the provider's default (`/`) when null."
+  default     = null
+
+  validation {
+    condition     = var.path == null || try(startswith(var.path, "/"), false)
+    error_message = "`path` must start with `/`, e.g. `/app/production`."
+  }
+}
+
+variable "project_id" {
+  type        = string
+  description = "ID of the project containing the secret. Resource will be created in the project set at the provider level if null."
+  default     = null
+}
+
+variable "protected" {
+  type        = bool
+  description = "True if secret protection is enabled. A protected secret cannot be deleted; Terraform will fail to destroy it unless this is set back to false."
+  default     = false
+  nullable    = false
+}
+
+variable "region" {
+  type        = string
+  description = "Region in which the resource exists. Resource will be created in the region set at the provider level if null."
+  default     = null
+}
+
+variable "tags" {
+  type        = list(string)
+  description = "Tags associated with the secret."
+  default     = []
+  nullable    = false
+}
+
+variable "type" {
+  type        = string
+  description = "Type of the secret. One of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key. Defaults to the provider's default (opaque) when null."
+  default     = null
+
+  validation {
+    condition     = var.type == null || try(contains(["opaque", "key_value", "database_credentials", "certificate", "basic_credentials", "ssh_key"], var.type), false)
+    error_message = "The type must be one of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key."
+  }
+}
+
+variable "version_description" {
+  type        = string
+  description = "Description of the secret version. Defaults to `description` when not set."
+  default     = null
 }
