@@ -6,18 +6,18 @@ variable "data" {
 
   validation {
     condition     = (var.data != null) != (var.data_wo != null)
-    error_message = "Exactly one of `data` or `data_wo` must be set."
+    error_message = "Exactly one of 'data' or 'data_wo' must be set."
   }
 
   validation {
     condition     = var.data == null || try(length(var.data) > 0, false)
-    error_message = "`data` must not be empty."
+    error_message = "'data' must not be empty."
   }
 
   # length() counts characters: the size in bytes is computed from the base64 encoding, minus its padding.
   validation {
     condition     = var.data == null || try(length(base64encode(var.data)) / 4 * 3 - length(regex("=*$", base64encode(var.data))) <= 65536, false)
-    error_message = "`data` must be no larger than 64KiB (65536 bytes)."
+    error_message = "'data' must be no larger than 64KiB (65536 bytes)."
   }
 }
 
@@ -30,13 +30,13 @@ variable "data_wo" {
 
   validation {
     condition     = var.data_wo == null || try(length(var.data_wo) > 0, false)
-    error_message = "`data_wo` must not be empty."
+    error_message = "'data_wo' must not be empty."
   }
 
   # length() counts characters: the size in bytes is computed from the base64 encoding, minus its padding.
   validation {
     condition     = var.data_wo == null || try(length(base64encode(var.data_wo)) / 4 * 3 - length(regex("=*$", base64encode(var.data_wo))) <= 65536, false)
-    error_message = "`data_wo` must be no larger than 64KiB (65536 bytes)."
+    error_message = "'data_wo' must be no larger than 64KiB (65536 bytes)."
   }
 }
 
@@ -47,12 +47,12 @@ variable "data_wo_version" {
 
   validation {
     condition     = var.data_wo == null || var.data_wo_version != null
-    error_message = "`data_wo_version` must be set (and incremented on every change to `data_wo`) when `data_wo` is used."
+    error_message = "'data_wo_version' must be set (and incremented on every change to 'data_wo') when 'data_wo' is used."
   }
 
   validation {
     condition     = var.data_wo_version == null || try(var.data_wo_version >= 1 && floor(var.data_wo_version) == var.data_wo_version, false)
-    error_message = "`data_wo_version` must be an integer greater than or equal to 1."
+    error_message = "'data_wo_version' must be an integer greater than or equal to 1."
   }
 }
 
@@ -73,12 +73,12 @@ variable "ephemeral_policy" {
 
   validation {
     condition     = var.ephemeral_policy == null || try(contains(["disable", "delete"], var.ephemeral_policy.action), false)
-    error_message = "The `ephemeral_policy.action` must be one of: disable, delete."
+    error_message = "'ephemeral_policy.action' must be one of `disable` or `delete`."
   }
 
   validation {
     condition     = var.ephemeral_policy == null || try(var.ephemeral_policy.ttl != null || var.ephemeral_policy.expires_once_accessed == true, false)
-    error_message = "The `ephemeral_policy` must set `ttl` or `expires_once_accessed = true`."
+    error_message = "'ephemeral_policy' must set 'ttl', or 'expires_once_accessed' to `true`."
   }
 }
 
@@ -94,7 +94,7 @@ variable "path" {
 
   validation {
     condition     = var.path == null || try(startswith(var.path, "/"), false)
-    error_message = "`path` must start with `/`, e.g. `/app/production`."
+    error_message = "'path' must start with `/`, e.g. `/app/production`."
   }
 }
 
@@ -131,7 +131,7 @@ variable "type" {
 
   validation {
     condition     = var.type == null || try(contains(["opaque", "key_value", "database_credentials", "certificate", "basic_credentials", "ssh_key"], var.type), false)
-    error_message = "The type must be one of: opaque, key_value, database_credentials, certificate, basic_credentials, ssh_key."
+    error_message = "'type' must be one of `opaque`, `key_value`, `database_credentials`, `certificate`, `basic_credentials` or `ssh_key`."
   }
 }
 
