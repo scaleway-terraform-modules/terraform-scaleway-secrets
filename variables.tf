@@ -84,7 +84,7 @@ variable "ephemeral_policy" {
 
 variable "name" {
   type        = string
-  description = "(Required) Name of the secret."
+  description = "Name of the secret."
 }
 
 variable "path" {
